@@ -13,11 +13,11 @@ if(CMAKE_VERSION VERSION_LESS "3.7.0")
     set(CMAKE_INCLUDE_CURRENT_DIR ON)
 endif()
 
-find_package(Qt5 COMPONENTS Widgets REQUIRED)
+find_package(Qt6 COMPONENTS Widgets REQUIRED)
 
 add_subdirectory(qteletextwidget)
 
 file (GLOB SOURCES qteletextmaker/*.cpp)
 add_executable(qteletextmaker ${SOURCES} qteletextmaker.qrc)
 
-target_link_libraries(qteletextmaker qteletextwidget Qt5::Widgets)
+target_link_libraries(qteletextmaker qteletextwidget Qt6::Widgets)
