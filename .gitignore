@@ -3,4 +3,5 @@ moc_*
 qrc_*
 *.o
 Makefile
-qteletextmaker
+.idea
+cmake-build-debug
