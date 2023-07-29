@@ -1,0 +1,33 @@
+name: Prepare
+
+on:
+  workflow_call:
+    inputs:
+      verify_tag:
+        type: boolean
+        required: true
+    outputs:
+      version:
+        value: ${{ jobs.prepare.outputs.version }}
+
+jobs:
+  prepare:
+    name: Prepare
+    runs-on: ubuntu-22.04
+    outputs:
+      version: ${{ steps.verify_tag.outcome == 'success' && steps.version.outputs.version || steps.version.outputs.sha }}
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Get version
+        id: version
+        run: |
+          echo "version=$(awk '/version:/ {print $2}' metadata.yaml)" >> $GITHUB_OUTPUT
+          echo "sha=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+
+      - name: Check release tag
+        id: verify_tag
+        if: inputs.verify_tag
+        run: test refs/tags/${{ steps.version.outputs.version }} == ${{ github.ref }}
