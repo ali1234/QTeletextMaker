@@ -1,0 +1,24 @@
+name: Release
+
+on:
+  workflow_call:
+
+jobs:
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: builds
+
+      - name: Create release
+        uses: softprops/action-gh-release@v1
+        with:
+          draft: true
+          fail_on_unmatched_files: true
+          files: |
+            *.zip
+            *.tar.gz

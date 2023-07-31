@@ -1,0 +1,25 @@
+name: Release
+on:
+  release:
+    types: [published]
+
+jobs:
+
+  prepare:
+    name: Prepare
+    uses: ./.github/workflows/prepare.yml
+    with:
+      verify_tag: true
+
+  build:
+    name: Build
+    needs: prepare
+    uses: ./.github/workflows/build.yml
+    with:
+      version: ${{ needs.prepare.outputs.version }}
+      build_type: Release
+
+  release:
+    name: Release
+    needs: build
+    uses: ./.github/workflows/release.yml

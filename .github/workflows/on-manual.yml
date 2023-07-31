@@ -1,0 +1,30 @@
+name: Manual Build
+on:
+  workflow_dispatch:
+    inputs:
+      build_type:
+        description: 'Build Type'
+        required: true
+        default: 'Debug'
+        type: choice
+        options:
+          - Debug
+          - Release
+          - MinSizeRel
+          - RelWithDebInfo
+
+jobs:
+
+  prepare:
+    name: Prepare
+    uses: ./.github/workflows/prepare.yml
+    with:
+      verify_tag: false
+
+  build:
+    name: Build
+    needs: prepare
+    uses: ./.github/workflows/build.yml
+    with:
+      version: pr${{ github.event.number }}-${{ needs.prepare.outputs.version }}
+      build_type: ${{ inputs.build_type }}
