@@ -50,7 +50,7 @@ install(SCRIPT ${deploy_script})
 
 set(CPACK_INCLUDE_TOPLEVEL_DIRECTORY OFF)
 if (WIN32)
-        set(CPACK_GENERATOR "ZIP")
+        set(CPACK_GENERATOR "NSIS")
 else ()
         set(CPACK_GENERATOR "TGZ")
 endif (WIN32)
