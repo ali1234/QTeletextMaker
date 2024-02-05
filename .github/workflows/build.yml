@@ -80,3 +80,4 @@ jobs:
           path: |
             ${{runner.workspace}}/build/${{env.RELEASE_FILE}}.tar.gz
             ${{runner.workspace}}/build/${{env.RELEASE_FILE}}.zip
+            ${{runner.workspace}}/build/${{env.RELEASE_FILE}}.exe
